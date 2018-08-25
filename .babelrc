@@ -5,6 +5,7 @@
       "module-resolver",
       {
         "alias": {
+          "@dist": "./dist",
           "modules": "./src/modules"
         }
       }
