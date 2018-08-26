@@ -42,7 +42,9 @@
   },
   "dependencies": {
     "babel-runtime": "^6.26.0",
-    "m3u8stream": "^0.3.0"
+    "bytes": "^3.0.0",
+    "m3u8stream": "^0.3.0",
+    "ora": "^3.0.0"
   },
   "jest": {
     "verbose": true,
