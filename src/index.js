@@ -10,7 +10,7 @@ const fn = input => {
   let totalDataLength = 0;
   const promises = input.map((data, i) => {
     const { url, name = i.toString() } = data;
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       const outputPath = path.join('./dist', `${name}.mp4`);
       console.log(`loading ${url} into ${outputPath}`);
       m3u8stream(url)
@@ -19,9 +19,11 @@ const fn = input => {
           const displayBytes = bytes(totalDataLength);
           spinner.text = `${displayBytes} loaded.`;
         })
+        .on('error', reject)
         .pipe(fs.createWriteStream(outputPath))
-        .on('end', () => resolve());
-    });
+        .on('finish', () => resolve())
+        .on('error', reject);
+    }).catch(console.log);
   });
   return Promise.all(promises).then(() => spinner.succeed());
 };
